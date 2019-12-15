@@ -1,0 +1,198 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://techprimers.com/spring-boot-soap-example"
+           targetNamespace="http://techprimers.com/spring-boot-soap-example"
+           elementFormDefault="qualified">
+
+
+    <xs:element name="plans" type="tns:Plans"/>
+
+    <xs:complexType name="Plan" abstract="true">
+        <xs:sequence>
+            <xs:element name="name">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="Unlimit"/>
+                        <xs:enumeration value="Light"/>
+                        <xs:enumeration value="Comfort"/>
+                        <xs:enumeration value="Smart"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dateOfIssue" type="xs:string"/>
+            <xs:element name="dateOfExpiry" type="xs:string"/>
+            <xs:element name="status">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="active"/>
+                        <xs:enumeration value="not active"/>
+                        <xs:enumeration value="expired"/>
+                        <xs:enumeration value="blocked"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="company" type="tns:Company"/>
+            <xs:element name="minuteCost">
+                <xs:simpleType>
+                    <xs:restriction base="xs:double">
+                        <xs:minExclusive value="0.1"/>
+                        <xs:maxInclusive value="5"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="smsCost">
+                <xs:simpleType>
+                    <xs:restriction base="xs:double">
+                        <xs:minExclusive value="0.1"/>
+                        <xs:maxInclusive value="5"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="gigabyteCost">
+                <xs:simpleType>
+                    <xs:restriction base="xs:double">
+                        <xs:minExclusive value="0.1"/>
+                        <xs:maxInclusive value="5"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="PostPaidPlan" abstract="true">
+        <xs:complexContent>
+            <xs:extension base="tns:Plan">
+                <xs:sequence>
+                    <xs:element name="subscription">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="weekly"/>
+                                <xs:enumeration value="monthly"/>
+                                <xs:enumeration value="quarterly"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="fee">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:positiveInteger">
+                                <xs:minExclusive value="10"/>
+                                <xs:maxInclusive value="250"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="PrepaidPlan">
+        <xs:complexContent>
+            <xs:extension base="tns:Plan">
+                <xs:sequence>
+                    <xs:element name="balance" type="xs:positiveInteger"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="AudioPlan">
+        <xs:complexContent>
+            <xs:extension base="tns:PostPaidPlan">
+                <xs:sequence>
+                    <xs:element name="countOfMinutes">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:positiveInteger">
+                                <xs:enumeration value="60"/>
+                                <xs:enumeration value="120"/>
+                                <xs:enumeration value="240"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="DataPlan">
+        <xs:complexContent>
+            <xs:extension base="tns:PostPaidPlan">
+                <xs:sequence>
+                    <xs:element name="countOfGigabytes">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:positiveInteger">
+                                <xs:enumeration value="16"/>
+                                <xs:enumeration value="32"/>
+                                <xs:enumeration value="64"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="FullPlan">
+        <xs:complexContent>
+            <xs:extension base="tns:PostPaidPlan">
+                <xs:sequence>
+                    <xs:element name="countOfMinutes">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:positiveInteger">
+                                <xs:enumeration value="60"/>
+                                <xs:enumeration value="120"/>
+                                <xs:enumeration value="240"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="countOfGigabytes">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:positiveInteger">
+                                <xs:enumeration value="16"/>
+                                <xs:enumeration value="32"/>
+                                <xs:enumeration value="64"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Company">
+        <xs:sequence>
+            <xs:element name="name">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="MTS"/>
+                        <xs:enumeration value="Vodafon"/>
+                        <xs:enumeration value="Velcom"/>
+                        <xs:enumeration value="Life"/>
+                        <xs:enumeration value="Alfa"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="address" type="tns:Address"/>
+            <xs:element name="rate">
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:minExclusive value="0"/>
+                        <xs:maxInclusive value="5"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Address">
+        <xs:sequence>
+            <xs:element name="country" type="xs:string"/>
+            <xs:element name="city" type="xs:string"/>
+            <xs:element name="street" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Plans">
+        <xs:sequence>
+            <xs:element name="plan" type="tns:Plan" minOccurs="2" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

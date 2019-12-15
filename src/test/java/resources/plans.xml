@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plans xmlns="http://techprimers.com/spring-boot-soap-example"
+       xsi:schemaLocation="http://techprimers.com/spring-boot-soap-example"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <plan xsi:type="AudioPlan">
+        <name>Unlimit</name>
+        <dateOfIssue>30/1/2019</dateOfIssue>
+        <dateOfExpiry>29/1/2020</dateOfExpiry>
+        <status>not active</status>
+        <company>
+            <name>MTS</name>
+            <address>
+                <country>Belarus</country>
+                <city>Minsk</city>
+                <street>Nyamiga</street>
+            </address>
+            <rate>4</rate>
+        </company>
+        <minuteCost>0.487</minuteCost>
+        <smsCost>0.151</smsCost>
+        <gigabyteCost>2.592</gigabyteCost>
+        <subscription>weekly</subscription>
+        <fee>215</fee>
+        <countOfMinutes>240</countOfMinutes>
+    </plan>
+
+    <plan xsi:type="DataPlan">
+        <name>Comfort</name>
+        <dateOfIssue>30/1/2019</dateOfIssue>
+        <dateOfExpiry>30/1/2020</dateOfExpiry>
+        <status>active</status>
+        <company>
+            <name>Alfa</name>
+            <address>
+                <country>Belarus</country>
+                <city>Minsk</city>
+                <street>Nezavisimosty</street>
+            </address>
+            <rate>4</rate>
+        </company>
+        <minuteCost>0.487</minuteCost>
+        <smsCost>0.151</smsCost>
+        <gigabyteCost>2.592</gigabyteCost>
+        <subscription>weekly</subscription>
+        <fee>113</fee>
+        <countOfGigabytes>32</countOfGigabytes>
+    </plan>
+</plans>
